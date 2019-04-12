@@ -1,0 +1,6 @@
+server:
+  port: 8082
+  context-path: /fdfs
+spring:
+  profiles:
+    active: native
