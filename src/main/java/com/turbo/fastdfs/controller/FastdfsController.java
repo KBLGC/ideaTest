@@ -35,9 +35,16 @@ public class FastdfsController {
      * @return
      * @throws Exception
      */
+
     @PostMapping("/upload")
     @ResponseBody
     public String upload(MultipartFile multipartFile)throws Exception {
+        StorePath storePath=fastFileStorageClient.uploadFile(multipartFile.getInputStream(),multipartFile.getSize(), FilenameUtils.getExtension(multipartFile.getOriginalFilename()),null);
+        return  fdfsWebServer.getWebServerUrl()+"/"+storePath.getFullPath();
+    }
+    @PostMapping("/noauth/upload")
+    @ResponseBody
+    public String uploadWithoutAuth(MultipartFile multipartFile)throws Exception {
         StorePath storePath=fastFileStorageClient.uploadFile(multipartFile.getInputStream(),multipartFile.getSize(), FilenameUtils.getExtension(multipartFile.getOriginalFilename()),null);
         return  fdfsWebServer.getWebServerUrl()+"/"+storePath.getFullPath();
     }
